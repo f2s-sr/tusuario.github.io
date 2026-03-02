@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Elevate Cripto</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+video {
+  width: 80%;
+  max-width: 900px;
+}
+
+#cta {
+  position: absolute;
+  bottom: 80px;
+  display: none;
+  gap: 20px;
+}
+
+.btn {
+  padding: 18px 35px;
+  font-size: 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.whatsapp {
+  background: #25D366;
+}
+
+.telegram {
+  background: #0088cc;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<video id="video" controls>
+  <source src="video.mp4" type="video/mp4">
+</video>
+
+<div id="cta">
+  <a class="btn whatsapp" href="https://wa.me/18047572217" target="_blank">
+    Contáctanos por WhatsApp
+  </a>
+
+  <a class="btn telegram" href="https://t.me/elevatecripto" target="_blank">
+    Más información en Telegram
+  </a>
+</div>
+
+<script>
+const video = document.getElementById("video");
+const cta = document.getElementById("cta");
+
+video.addEventListener("timeupdate", function() {
+  if (video.duration - video.currentTime <= 15) {
+    cta.style.display = "flex";
+  }
+});
+</script>
+
+</body>
+</html>
