@@ -12,13 +12,14 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  position: relative;
+  flex-direction: column;
   font-family: Arial, sans-serif;
 }
 
-video {
+#player {
   width: 80%;
   max-width: 900px;
+  height: 500px;
 }
 
 #cta {
@@ -26,6 +27,8 @@ video {
   bottom: 80px;
   display: none;
   gap: 20px;
+  flex-direction: column;
+  align-items: center;
 }
 
 .btn {
@@ -35,48 +38,54 @@ video {
   text-decoration: none;
   color: white;
   font-weight: bold;
-  transition: 0.3s;
+  width: 270px;
+  text-align: center;
 }
 
-.whatsapp {
-  background: #25D366;
-}
-
-.telegram {
-  background: #0088cc;
-}
-
-.btn:hover {
-  transform: scale(1.05);
-}
+.whatsapp { background: #25D366; }
+.telegram { background: #0088cc; }
 </style>
 </head>
 
 <body>
 
-<video id="video" controls>
-  <source src="video.mp4" type="video/mp4">
-</video>
+<div id="player"></div>
 
 <div id="cta">
   <a class="btn whatsapp" href="https://wa.me/18047572217" target="_blank">
     Contáctanos por WhatsApp
   </a>
-
   <a class="btn telegram" href="https://t.me/elevatecripto" target="_blank">
     Más información en Telegram
   </a>
 </div>
 
-<script>
-const video = document.getElementById("video");
-const cta = document.getElementById("cta");
+<script src="https://www.youtube.com/iframe_api"></script>
 
-video.addEventListener("timeupdate", function() {
-  if (video.duration - video.currentTime <= 15) {
-    cta.style.display = "flex";
+<script>
+let player;
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    videoId: 'L3J5HtZTROs',
+    events: {
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.PLAYING) {
+    setInterval(function() {
+      let duration = player.getDuration();
+      let current = player.getCurrentTime();
+
+      if (duration - current <= 15) {
+        document.getElementById("cta").style.display = "flex";
+      }
+    }, 1000);
   }
-});
+}
 </script>
 
 </body>
